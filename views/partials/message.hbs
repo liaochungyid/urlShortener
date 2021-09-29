@@ -1,0 +1,24 @@
+<div class="row">
+  <form action="/" method="post">
+    <div class="my-3 mx-auto" style="max-width: 480px;">
+      <input class="form-control form-control-lg bg-light border-0" type="text" placeholder="Input URL here"
+        aria-label="Input URL here" name="userURL" {{#if success}} value="{{success}}" readonly {{else if warning}}
+        value="{{userURL}}" autofocus {{else}} autofocus {{/if}}>
+    </div>
+    {{#if success}}
+    <button type="submit" class="btn btn-info w-25 mx-2">Copy Link</button>
+    <a href="/">
+      <button type="button" class="btn btn-primary w-25 mx-2">Shorten Others</button>
+    </a>
+    {{else}}
+    <button type="submit" class="btn btn-primary w-50 mx-2">Shorten</button>
+    {{/if}}
+  </form>
+</div>
+
+{{#if warning}}
+<div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
+  {{warning}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/if}}
