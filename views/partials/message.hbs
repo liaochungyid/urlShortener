@@ -3,7 +3,7 @@
     <div class="my-3 mx-auto" style="max-width: 480px;">
       <input class="form-control form-control-lg bg-light border-0" type="text" placeholder="Input URL here"
         aria-label="Input URL here" name="userURL" id="shortURL" {{#if success}} value="{{success}}" readonly {{else if
-        warning}} value="{{userURL}}" autofocus {{else}} autofocus {{/if}}>
+        warning}} value="{{userURL}}" autofocus {{else}} autofocus {{/if}}required>
     </div>
     {{#if success}}
     <button type="button" class="btn btn-info w-25 mx-2" onClick="shortURL.select();document.execCommand('Copy')">Copy
