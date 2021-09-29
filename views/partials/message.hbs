@@ -2,11 +2,12 @@
   <form action="/" method="post">
     <div class="my-3 mx-auto" style="max-width: 480px;">
       <input class="form-control form-control-lg bg-light border-0" type="text" placeholder="Input URL here"
-        aria-label="Input URL here" name="userURL" {{#if success}} value="{{success}}" readonly {{else if warning}}
-        value="{{userURL}}" autofocus {{else}} autofocus {{/if}}>
+        aria-label="Input URL here" name="userURL" id="shortURL" {{#if success}} value="{{success}}" readonly {{else if
+        warning}} value="{{userURL}}" autofocus {{else}} autofocus {{/if}}>
     </div>
     {{#if success}}
-    <button type="submit" class="btn btn-info w-25 mx-2">Copy Link</button>
+    <button type="button" class="btn btn-info w-25 mx-2" onClick="shortURL.select();document.execCommand('Copy')">Copy
+      Link</button>
     <a href="/">
       <button type="button" class="btn btn-primary w-25 mx-2">Shorten Others</button>
     </a>
