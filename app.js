@@ -2,6 +2,7 @@ const express = require('express')
 const session = require('express-session')
 const exphbs = require('express-handlebars')
 const flash = require('connect-flash')
+const axios = require('axios')
 
 const app = express()
 const PORT = 3000
@@ -28,12 +29,34 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', (req, res) => {
-  if (req.body.userURL === "warning") {
-    req.flash('warning', "warning message")
-    req.flash('userURL', req.body.userURL)
-  } else if (req.body.userURL === "success")
-    req.flash('success', "test message")
-  res.redirect('/')
+  const url = req.body.userURL.trim()
+  req.flash('userURL', url)
+
+  if (url.includes(' ')) {
+    req.flash('warning', 'Input is an invalid URL.')
+    return res.redirect('/')
+  }
+
+  try {
+    new URL(url)
+  } catch {
+    req.flash('warning', 'Input is an invalid URL.')
+    return es.redirect('/')
+  }
+
+  axios.get(req.body.userURL)
+    .then(response => {
+      if (response.status < 300) {
+        req.flash('success', 'success message')
+      } else {
+        req.flash('success', `success message, but URL has an issue. (${response.status}: ${response.statusText})`)
+      }
+      // res.redirect('/')
+    })
+    .catch(err => {
+      req.flash('warning', `Input is an invalid URL. (${err.response.status}: ${err.response.statusText})`)
+    })
+    .finally(() => res.redirect('/'))
 })
 
 app.listen(PORT, () => {
