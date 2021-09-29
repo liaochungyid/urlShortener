@@ -4,7 +4,7 @@ module.exports = function randomURL(requiredChars) {
   const numbers = '0123456789'
 
   const chars = charsUpper + charsLower + numbers
-  let url = '/'
+  let url = ''
 
   for (let i = 0; i < requiredChars; i++) {
     url += chars[Math.floor(Math.random() * chars.length)]
