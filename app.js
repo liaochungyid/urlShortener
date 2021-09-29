@@ -3,13 +3,16 @@ const session = require('express-session')
 const exphbs = require('express-handlebars')
 const flash = require('connect-flash')
 const axios = require('axios')
+const randomURL = require('./public/javascripts/randomURL.js')
 
 const app = express()
+const urlBase = 'http://localhost'
 const PORT = 3000
 
 app.engine('hbs', exphbs({ defaultLayout: "main", extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
+app.use(express.static('public'))
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
@@ -41,17 +44,15 @@ app.post('/', (req, res) => {
     new URL(url)
   } catch {
     req.flash('warning', 'Input is an invalid URL.')
-    return es.redirect('/')
+    return res.redirect('/')
   }
 
   axios.get(req.body.userURL)
     .then(response => {
       if (response.status < 300) {
-        req.flash('success', 'success message')
-      } else {
-        req.flash('success', `success message, but URL has an issue. (${response.status}: ${response.statusText})`)
+        return req.flash('success', urlBase + randomURL(5))
       }
-      // res.redirect('/')
+      req.flash('warning', `success, but URL has an issue. (${response.status}: ${response.statusText})`)
     })
     .catch(err => {
       req.flash('warning', `Input is an invalid URL. (${err.response.status}: ${err.response.statusText})`)
