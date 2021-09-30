@@ -28,6 +28,7 @@ Sep. 30 21
 
 1. Node.js v10.15.0
 2. Other models please refer to package.json > dependencies
+3. MongoDB and mongoose set as defult port: 27017. 
 
 ## Usage
 
@@ -37,7 +38,7 @@ note: it will produce 3 demo urls in shortenURL(database) and shortenurls(collec
 $ npm run seed
 ```
 
-Start at http://Locakhost:3000/
+Start at http://localhost:3000/
 ```js
 $ npm run start
 ```
